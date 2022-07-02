@@ -1,0 +1,95 @@
+Nav bar comment- 
+ <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
+
+ <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+
+
+
+
+Database
+
+CREATE TABLE [dbo].[BranchTbl]
+(
+	[BranchId] INT NOT NULL PRIMARY KEY IDENTITY(100, 1), 
+    [Name] VARCHAR(50) NOT NULL, 
+    [Country] VARCHAR(50) NOT NULL, 
+    [Province] VARCHAR(50) NOT NULL, 
+    [Location] VARCHAR(50) NOT NULL, 
+    [Phone] VARCHAR(50) NOT NULL 
+)
+
+
+CREATE TABLE [dbo].[StatusTbl]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(100, 1), 
+    [Status] VARCHAR(50) NOT NULL
+)
+
+CREATE TABLE [dbo].[EmploymentStatusTbl]
+(
+	[EmpId] INT NOT NULL PRIMARY KEY IDENTITY(100, 1), 
+    [Status] VARCHAR(50) NOT NULL
+)
+
+CREATE TABLE [dbo].[SchoolStatusTbl]
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [Status] VARCHAR(50) NOT NULL
+)
+
+CREATE TABLE [dbo].[Table]
+(
+	[MemberId] INT NOT NULL PRIMARY KEY IDENTITY(100, 1), 
+    [Name] VARCHAR(50) NOT NULL, 
+    [Surname] VARCHAR(50) NOT NULL, 
+    [Phone] VARCHAR(50) NOT NULL, 
+    [Address] VARCHAR(150) NOT NULL, 
+    [Password] VARCHAR(50) NOT NULL, 
+    [MemberRole] INT NOT NULL, 
+    [MembershipStatus] INT NOT NULL, 
+    [Branch] INT NOT NULL, 
+    [EmploymentStatus] INT NOT NULL, 
+    [SchoolStatus] INT NOT NULL, 
+    CONSTRAINT [FK7] FOREIGN KEY ([MemberRole]) REFERENCES [RoleTbl]([RoleId]), 
+    CONSTRAINT [FK8] FOREIGN KEY ([MembershipStatus]) REFERENCES [StatusTbl]([Id]), 
+    CONSTRAINT [FK9] FOREIGN KEY ([Branch]) REFERENCES [BranchTbl]([BranchId]), 
+    CONSTRAINT [FK10] FOREIGN KEY ([EmploymentStatus]) REFERENCES [EmploymentStatusTbl]([EmpId]), 
+    CONSTRAINT [FK11] FOREIGN KEY ([SchoolStatus]) REFERENCES [SchoolStatusTbl]([Id])
+)
+
+CREATE TABLE [dbo].[BranchTbl] (
+    [BranchId] INT          IDENTITY (100, 1) NOT NULL,
+    [Name]     VARCHAR (50) NOT NULL,
+    [Country]  VARCHAR (50) NOT NULL,
+    [Province] VARCHAR (50) NOT NULL,
+    [Location] VARCHAR (50) NOT NULL,
+    [Phone]    VARCHAR (50) NOT NULL,
+    [Leader] INT NOT NULL, 
+    PRIMARY KEY CLUSTERED ([BranchId] ASC), 
+    CONSTRAINT [FK13] FOREIGN KEY ([Leader]) REFERENCES [MemberTbl]([MemberId])
+)
+
+CREATE TABLE [dbo].[AnnouncementTbl]
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [Date] DATETIME NOT NULL, 
+    [Announcement] VARCHAR(300) NOT NULL, 
+    [ServiceLink] VARCHAR(150) NULL
+)
